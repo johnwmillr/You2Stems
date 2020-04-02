@@ -22,35 +22,54 @@ def hook(d):
     if d['status'] == 'finished':
         print('Done downloading, now converting...')
 
-options = {
-    'format': 'bestaudio/best',
-    'postprocessors': [{
-        'key': 'FFmpegExtractAudio',
-        'preferredcodec': 'mp3',
-        'preferredquality': '192',
-    }],
-    'logger': Logger(),
-    'progress_hooks': [hook],
-    'keepvideo': False
-}
-
-def download_urls(urls, outdir='', verbose=True):
-    """Download and convert YouTube URL to mp3
-    :urls: (list) One or more video URLs for downloading
-    :outdir: (str) (optional) Specify where to save the mp3
-    Returns: None on success
+def download_youtube_audio(url, filename=None, codec="wav"):
     """
-    options['verbose'] = verbose
-    options['outtmpl'] = './tmp/FOO_%(title)s-%(id)s.%(ext)s'
-    # options['outtmpl'] = 'TEST'
+    Download audio from a YouTube video.
+    Adapted from: https://www.programcreek.com/python/example/98358/youtube_dl.YoutubeDL
+    
+    :url: (str)
+    :filename: (str)
+    :code: (str)
+    """
+    def create_filename(name, video_info):
+        from string import punctuation
+
+        root = "./{name}.%(ext)s"
+        if not name:
+            # Assemble the filename from the video info
+            name = (video_info.get("title")
+                              .translate(str.maketrans("", "", punctuation))
+                              .replace(" ", "_"))
+        return root.format(name=name), name
+
+    ydl_opts = {
+        'format': 'bestaudio/best',
+        'outtmpl': "",
+        'noplaylist': True,
+        'continue_dl': True,
+        'postprocessors': [{
+            'key': 'FFmpegExtractAudio',
+            'preferredcodec': codec,
+            'preferredquality': '192'}],
+        'logger': Logger(),
+        'progress_hooks': [hook],
+        'keepvideo': False}
+
     try:
-        with youtube_dl.YoutubeDL(options) as ydl:
-            ydl.download(urls)
-        return True
+        with youtube_dl.YoutubeDL(ydl_opts) as ydl:
+            ydl.cache.remove()
+            info_dict = ydl.extract_info(url, download=False)
+            filename, name = create_filename(filename, info_dict)
+            ydl.params["outtmpl"] = filename
+            ydl.download([url])
+            return filename, name
     except Exception as e:
-        print(f'Error while downloading:\n\n{e}')
-        return e
-    return True
+        print(f"Error while downloading: {e}")
+        return None, None
+
+def download_urls(urls, filenames, codec="wav"):
+    for url, filename in zip(urls, filenames):
+        download_youtube_audio(url, filename, codec)
 
 # def split_into_stems()
 
@@ -59,10 +78,11 @@ def download_urls(urls, outdir='', verbose=True):
 
 def main():
     print('Starting main...\n')
-    urls = ['https://www.youtube.com/watch?v=BaW_jenozKc']
-    download_urls(urls)
+    videos = {"andy_shauf_thirteen_hours": "https://www.youtube.com/watch?v=ne0VnqTHsCk"}
+    urls = list(videos.values())
+    names = list(videos.keys())
+    download_urls(urls, names)
     print('Done!')
-
 
 if __name__ == '__main__':
     main()
