@@ -41,7 +41,9 @@ class Downloader(object):
         """
         from string import punctuation
 
-        root = "./{name}.%(ext)s"
+        # Strip directory information from the filename
+        name = os.path.basename(name)
+        root = "output/{name}.%(ext)s"
         if not name:
             # Assemble the filename from the video info
             name = (video_info.get("title")
@@ -80,10 +82,13 @@ class Downloader(object):
                 filename, name = self.create_filename(filename, info_dict)
                 ydl.params["outtmpl"] = filename
                 ydl.download([url])
-                return f'{name}.{codec}' # TODO: Don't assume the codec
+
+                # Assemble the output file name
+                final_file_name = f'output/{name}.{codec}' # TODO: Don't assume the codec
+                return final_file_name
         except Exception as e:
             print(f"Error while downloading: {e}")
-            return None, None
+            return None
 
     def download_urls(self, urls, filenames, codec='mp3'):
         """
@@ -121,7 +126,7 @@ class Splitter(object):
         separator = Separator(f"spleeter:{num_stems}stems")
 
         # Separate the audio track
-        fileout = os.path.join('stems', os.path.dirname(filename))
+        fileout = os.path.join(os.path.dirname(filename), 'stems')
         separator.separate_to_file(filename,
                                    fileout,
                                    codec=self.codec,
@@ -155,7 +160,8 @@ class SongToStems(object):
         :filename: (str) Name of output file
         """
         # Download the audio
-        youtube_audio_file   = self.downloader.download_youtube_audio(
+        print(url)
+        youtube_audio_file = self.downloader.download_youtube_audio(
             url=url,
             filename=filename)
     
@@ -163,15 +169,3 @@ class SongToStems(object):
         self.splitter.split_into_stems(
             filename=youtube_audio_file,
             num_stems=self.num_stems)
-
-
-def main():
-    print('Starting main...\n')
-    videos = {"reading": "https://www.youtube.com/watch?v=-FD1K8OvVCs"}
-    urls = list(videos.values())
-    names = list(videos.keys())
-    download_urls(urls, names)
-    print('Done!')
-
-if __name__ == '__main__':
-    main()
