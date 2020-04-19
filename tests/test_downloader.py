@@ -13,7 +13,7 @@ import os
 from os.path import splitext, basename, exists, join
 
 import pytest
-from tube2stems.tube2stems import Downloader
+from youstem.youstem import Downloader
 
 
 class Logger(object):
@@ -42,9 +42,9 @@ def test_download_youtube_audio(url, filename, codec):
     ''' Test downloading audio from a YouTube video '''
 
     downloader = Downloader(codec=codec)
-    filename = join("tests", filename)
+    filename = "TEST_" + filename
     
     result = downloader.download_youtube_audio(url=url, filename=filename)
-    fn = f'{filename}.{codec}'
+    fn = f'output/{filename}.{codec}'
     assert exists(fn)
     os.remove(fn)
