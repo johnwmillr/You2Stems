@@ -33,6 +33,14 @@ def main(args=None):
         default=2)
 
     parser.add_argument(
+        "--download-only",
+        "-d",
+        help="Only download audio, don't split to stems.",
+        type=bool,
+        default=False,
+        choices=[True, False])
+
+    parser.add_argument(
         "--codec",
         "-c",
         help="Specify the preferred audio codec.",
@@ -59,10 +67,18 @@ def main(args=None):
 
     # Create the SongToStems instance
     song2stems = SongToStems(
+        codec=args.codec,
         num_stems=args.num_stems,
         verbose=args.verbose)
 
-    # Download the YouTube audio, split it to stems
+    # If specifid, only download audio then exit
+    if args.download_only:
+        song2stems.downloader.download_youtube_audio(
+            url=args.url,
+            filename=args.file)
+        return
+
+    # Download audio, split to stems
     song2stems.download_and_split(
         url=args.url,
         filename=args.file)
