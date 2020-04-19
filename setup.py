@@ -45,7 +45,7 @@ setup(
     install_requires=requirements,
     entry_points={
         'console_scripts': [
-            'youstem = youstem.__main__:main']
+            'youstem = youstem.__cli__:main']
     },
     classifiers=[
         'Topic :: Software Development :: Libraries',
