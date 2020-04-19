@@ -45,7 +45,7 @@ setup(
     install_requires=requirements,
     entry_points={
         'console_scripts': [
-            'you2stem = you2stem.__cli__:main']
+            'you2stem = you2stem.__main__:main']
     },
     classifiers=[
         'Topic :: Software Development :: Libraries',

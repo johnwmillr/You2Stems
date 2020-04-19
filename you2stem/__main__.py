@@ -10,6 +10,8 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
+# TODO: Add option to specify path to downloaded spleeter models
+
 
 # TODO: Figure out the right way to do this
 try:
@@ -92,6 +94,6 @@ def main(args=None):
         filename=args.file)
 
 
-if __name__ == "__cli__":
+if __name__ == "__main__":
     main()
     print("Done!")
