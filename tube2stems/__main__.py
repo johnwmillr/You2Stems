@@ -22,7 +22,7 @@ def main(args=None):
     parser.add_argument(
         "url",
         help="The YouTube URL to download audio from.",
-        type=str.lower)
+        type=str)
 
     parser.add_argument(
         "--num-stems",
@@ -57,11 +57,12 @@ def main(args=None):
     args = parser.parse_args()
     print(args)
 
-    # Download audio, split into stems
+    # Create the SongToStems instance
     song2stems = SongToStems(
         num_stems=args.num_stems,
         verbose=args.verbose)
 
+    # Download the YouTube audio, split it to stems
     song2stems.download_and_split(
         url=args.url,
         filename=args.file)
