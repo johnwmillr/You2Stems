@@ -1,3 +1,19 @@
+# Audio
+output
+stems
+*.mp3
+*.wav
+*.mp4
+
+# Python
 __pycache__
+
+# macOS
 .DS_Store
+
+# Jupyter
 .ipynb_checkpoints
+*.ipynb
+
+# Spleeter
+pretrained_models
