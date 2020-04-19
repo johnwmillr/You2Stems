@@ -13,7 +13,7 @@ import os
 from os.path import splitext, basename, exists, join
 
 import pytest
-from youstem.youstem import Downloader
+from you2stem.you2stem import Downloader
 
 
 class Logger(object):

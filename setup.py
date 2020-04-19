@@ -1,5 +1,5 @@
 """
-YouStem
+You2Stem
 John W. Miller
 2020
 """
@@ -9,9 +9,9 @@ import re
 from os import path
 from setuptools import find_packages, setup
 
-assert sys.version_info[0] == 3, "YouStem requires Python 3."
+assert sys.version_info[0] == 3, "You2Stem requires Python 3."
 
-VERSIONFILE = "youstem/__init__.py"
+VERSIONFILE = "you2stem/__init__.py"
 ver_file = open(VERSIONFILE, "rt").read()
 VSRE = r"^__version__ = ['\"]([^'\"]*)['\"]"
 mo = re.search(VSRE, ver_file, re.M)
@@ -31,7 +31,7 @@ with open('requirements.txt') as f:
     requirements = f.read().splitlines()
 
 setup(
-    name='youstem',
+    name='you2stem',
     version=version,
     description='Download YouTube audio, split the track into instrumental stems.',
     long_description=long_description,
@@ -39,13 +39,13 @@ setup(
     license="MIT",
     author='John W. Miller',
     author_email='john.w.millr@gmail.com',
-    url='https://github.com/johnwmillr/YouStem',
+    url='https://github.com/johnwmillr/You2Stem',
     keywords='youtube-dl spleeter audio stems music',
     packages=find_packages(exclude=['tests']),
     install_requires=requirements,
     entry_points={
         'console_scripts': [
-            'youstem = youstem.__cli__:main']
+            'you2stem = you2stem.__cli__:main']
     },
     classifiers=[
         'Topic :: Software Development :: Libraries',
