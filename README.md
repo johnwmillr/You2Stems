@@ -3,5 +3,5 @@
 ## Command line usage
 
 ```
-python tube2stems "youtube.com" --num-stems 2
+python youstem "youtube.com/link-to-video" --num-stems 2 --file audio_file
 ```
