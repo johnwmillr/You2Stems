@@ -6,8 +6,18 @@ John W. Miller
 
 import sys
 import argparse
+import warnings
 
-from youstem import SongToStems
+warnings.filterwarnings('ignore')
+
+
+# TODO: Figure out the right way to do this
+try:
+    # Running from $youstem in bash
+    from youstem.youstem import SongToStems
+except:
+    # Running from a local Python package
+    from youstem import SongToStems
 
 
 def main(args=None):
@@ -84,3 +94,4 @@ def main(args=None):
 
 if __name__ == "__main__":
     main()
+    print("Done!")
