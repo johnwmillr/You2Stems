@@ -1,15 +1,13 @@
 """
-tube2stems
+YouStem
 John W. Miller
 2020
 """
 
-# TODO: Add this: https://github.com/ytdl-org/youtube-dl/issues/23638
-
 import sys
 import argparse
 
-from tube2stems import SongToStems
+from youstem import SongToStems
 
 
 def main(args=None):

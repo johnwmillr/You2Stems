@@ -1,7 +1,8 @@
-# John W. Miller
-# November 2019
-
-# TODO: Change name to song2stems
+"""
+YouStem
+John W. Miller
+2020
+"""
 
 import os
 import warnings
@@ -88,7 +89,8 @@ class Downloader(object):
                 ydl.download([url])
 
                 # Assemble the output file name
-                final_file_name = f'output/{name}.{codec}' # TODO: Don't assume the codec
+                # TODO: Don't assume the desired codec was downloaded
+                final_file_name = f'output/{name}.{codec}'
                 return final_file_name
         except Exception as e:
             raise Exception(f"Error while downloading: {e}")
