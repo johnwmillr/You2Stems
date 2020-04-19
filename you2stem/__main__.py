@@ -92,6 +92,6 @@ def main(args=None):
         filename=args.file)
 
 
-if __name__ == "__main__":
+if __name__ == "__cli__":
     main()
     print("Done!")
