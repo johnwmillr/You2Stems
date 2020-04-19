@@ -40,15 +40,19 @@ class Downloader(object):
         :video_info: (str)
         """
         from string import punctuation
-
-        # Strip directory information from the filename
-        name = os.path.basename(name)
-        root = "output/{name}.%(ext)s"
+        
+           
+        # Assemble the filename from the video info
         if not name:
-            # Assemble the filename from the video info
-            name = (video_info.get("title")
-                              .translate(str.maketrans("", "", punctuation))
-                              .replace(" ", "_"))
+            name = (
+                video_info.get("title")
+                          .translate(str.maketrans("", "", punctuation))
+                          .replace(" ", "_"))
+        else:
+            name = os.path.basename(name)
+
+        # Save the file to the output directory
+        root = "output/{name}.%(ext)s"
         return root.format(name=name), name
 
     def download_youtube_audio(self, url, filename=None, codec=None):
@@ -87,8 +91,7 @@ class Downloader(object):
                 final_file_name = f'output/{name}.{codec}' # TODO: Don't assume the codec
                 return final_file_name
         except Exception as e:
-            print(f"Error while downloading: {e}")
-            return None
+            raise Exception(f"Error while downloading: {e}")
 
     def download_urls(self, urls, filenames, codec='mp3'):
         """
