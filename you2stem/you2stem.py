@@ -139,28 +139,6 @@ class Splitter(object):
                                    codec=self.codec,
                                    filename_format='{filename}/{instrument}.{codec}')
 
-class Uploader():
-    """StoresStems in S3"""
-    
-    def __init__(self):
-        self.botoSession = boto3.Session(
-            aws_access_key_id=os.environ.get('AWS_ACCESS_KEY_ID'),
-            aws_secret_access_key=os.environ.get('AWS_SECRET_ACCESS_KEY'),
-            # profile_name='csm'
-        )
-        self.s3 = self.botoSession.client('s3')
-        self.bucket_name = 'youstem-output'
-
-    
-    def upload_output(self):
-        date_tag = datetime.now().strftime("%m-%d-%Y-%H:%M:%S") + '-'
-        for root, dirs, files in os.walk("output", topdown=False):
-            audio_files = [os.path.join(root, name) for name in files]
-            for audio_file in audio_files:
-                file_name = date_tag + audio_file
-                print('Uploading: ' + file_name)
-                self.s3.upload_file(audio_file, self.bucket_name, file_name)
-
 
 class SongToStems(object):
     """
@@ -199,6 +177,3 @@ class SongToStems(object):
         self.splitter.split_into_stems(
             filename=youtube_audio_file,
             num_stems=self.num_stems)
-        
-        self.uploader.upload_output()
-
