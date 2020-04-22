@@ -159,7 +159,6 @@ class SongToStems(object):
         # Create the Downloader and Splitter instances
         self.downloader = Downloader(codec=self.codec, verbose=self.verbose)
         self.splitter = Splitter(codec=self.codec)
-        self.uploader = Uploader()
 
     def download_and_split(self, url, filename=None):
         """
