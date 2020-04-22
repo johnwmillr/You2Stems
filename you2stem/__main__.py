@@ -1,5 +1,5 @@
 """
-YouStem
+You2Stem
 John W. Miller
 2020
 """
@@ -10,21 +10,23 @@ import warnings
 
 warnings.filterwarnings('ignore')
 
+# TODO: Add option to specify path to downloaded spleeter models
+
 
 # TODO: Figure out the right way to do this
 try:
-    # Running from $youstem in bash
-    from youstem.youstem import SongToStems
+    # Running from $you2stem in bash
+    from you2stem.you2stem import SongToStems
 except:
     # Running from a local Python package
-    from youstem import SongToStems
+    from you2stem import SongToStems
 
 
 def main(args=None):
     desc = "Download YouTube audio, split the track into instrumental stems."
     parser = argparse.ArgumentParser(
         description=desc,
-        prog="youstem",
+        prog="you2stem",
         allow_abbrev=False)
         
     parser.add_argument(
