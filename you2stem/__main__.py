@@ -1,5 +1,5 @@
 """
-You2Stem
+You2Stems
 John W. Miller
 2020
 """
@@ -15,20 +15,20 @@ warnings.filterwarnings('ignore')
 
 # TODO: Figure out the right way to do this
 try:
-    # Running from $you2stem in bash
-    from you2stem.you2stem import SongToStems
+    # Running from $you2stems in bash
+    from you2stems.you2stems import SongToStems
 except:
     # Running from a local Python package
-    from you2stem import SongToStems
+    from you2stems import SongToStems
 
 
 def main(args=None):
     desc = "Download YouTube audio, split the track into instrumental stems."
     parser = argparse.ArgumentParser(
         description=desc,
-        prog="you2stem",
+        prog="you2stems",
         allow_abbrev=False)
-        
+
     parser.add_argument(
         "url",
         help="The YouTube URL to download audio from.",

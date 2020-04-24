@@ -1,5 +1,5 @@
 """
-You2Stem
+You2Stems
 John W. Miller
 2020
 """
@@ -29,7 +29,7 @@ class Logger(object):
 def hook(d):
     if d['status'] == 'finished':
         print('Done downloading, now converting...')
-            
+
 
 class Downloader(object):
 
@@ -43,8 +43,8 @@ class Downloader(object):
         :video_info: (str)
         """
         from string import punctuation
-        
-           
+
+
         # Assemble the filename from the video info
         if not name:
             name = (
@@ -62,7 +62,7 @@ class Downloader(object):
         """
         Download audio from a YouTube video.
         Adapted from: https://www.programcreek.com/python/example/98358/youtube_dl.YoutubeDL
-        
+
         :url: (str)
         :filename: (str)
         :code: (str)
@@ -106,7 +106,7 @@ class Downloader(object):
         codec = codec if codec else self.codec
         msg = "`urls` and `filenames` must be the same length."
         assert len(urls) == len(filenames), msg
-        
+
         # Download the audio for each URL
         filenames = []
         for url, filename in zip(urls, filenames):
@@ -171,7 +171,7 @@ class SongToStems(object):
         youtube_audio_file = self.downloader.download_youtube_audio(
             url=url,
             filename=filename)
-    
+
         # Split into stems
         self.splitter.split_into_stems(
             filename=youtube_audio_file,
