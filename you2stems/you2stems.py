@@ -11,10 +11,8 @@ from datetime import datetime
 import youtube_dl
 from spleeter.separator import Separator
 
-import boto3
 
 warnings.filterwarnings('ignore')
-
 
 class Logger(object):
     def debug(self, msg):
